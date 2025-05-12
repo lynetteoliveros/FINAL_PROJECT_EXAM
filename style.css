@@ -72,7 +72,6 @@ button:hover{
     background: #6884d3;
 }
 
-
 p{
     font-size: 14.5px;
     text-align: center;
@@ -115,3 +114,26 @@ span{
     width: 300px;
     margin: 0 auto;
 }
+
+
+
+
+
+
+
+
+/* .wrapper{
+    display: flex; 
+    position: relative; 
+
+}
+
+.wrapper .sidebar {
+    background: black;
+    width: 200px;
+    height: 100%;
+    position: fixed;
+    padding: 30px;
+} */
+
+
