@@ -122,6 +122,9 @@ span{
 
 
 
+
+
+
 /* .wrapper{
     display: flex; 
     position: relative; 
@@ -137,3 +140,25 @@ span{
 } */
 
 
+
+.success-message {
+    padding: 12px;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    border-radius: 6px;
+    color: #155724;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.error-message {
+    padding: 12px;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 6px;
+    color: #721c24;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 600;
+}

@@ -5,26 +5,26 @@ if (!isset($_SESSION['email'])) {
     exit(); 
 }
 
-// Assuming the user's name is stored in the session, or you can fetch it from the database
-$name = $_SESSION['name']; // Replace with actual session variable or database fetch
+$name = isset($_SESSION['name']) ? $_SESSION['name'] : '';
+$email = isset($_SESSION['email']) ? $_SESSION['email'] : '';
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>User Dashboard</title>
-    <link rel="stylesheet" href="design/user.css">
+    <link rel="stylesheet" href="design/user.css" />
 </head>
 <body style="background: #fff;">
     
-    <!-- Full-Width Header Section -->
+    <!-- Header -->
     <header>
         <div class="header-container">
             <h1 class="logo">HELPDESK</h1>
-            <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button> <!-- Sidebar Toggle Button -->
-            <h2 class="welcome-message">Welcome, <?php echo $name; ?>!</h2> <!-- Welcome message on the right -->
+            <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+            <h2 class="welcome-message">Welcome, <?php echo htmlspecialchars($name); ?>!</h2>
         </div>
     </header>
 
@@ -34,18 +34,22 @@ $name = $_SESSION['name']; // Replace with actual session variable or database f
         <ul>
             <li><a href="user_page.php">Dashboard</a></li>
             <li><a href="status.php">Ticket Status</a></li>
-            <li><a href="profile.php">Profile</a></li>
-            <li><a href="settings.php">Settings</a></li>
-            <li><a href="logout.php">Logout</a></li> <!-- Logout moved here -->
+            <li><a href="settings.php">Settings</a></li> <!-- Corrected here -->
+            <li><a href="logout.php">Logout</a></li>
         </ul>
     </div>
 
-    <!-- Main Content: Helpdesk Ticket Form -->
+    <!-- Main Content -->
     <main class="ticket-form-container">
         <h2>Submit a Helpdesk Ticket</h2>
-        <form class="ticket-form" method="post" action="#">
+
+        <?php if (isset($_GET['msg']) && $_GET['msg'] == 'success'): ?>
+            <p style="color: green; text-align: center;">Your ticket has been submitted successfully!</p>
+        <?php endif; ?>
+
+        <form class="ticket-form" method="post" action="submit_ticket.php">
             <label for="subject">Subject:</label>
-            <input type="text" id="subject" name="subject" placeholder="Enter the subject of your issue" required>
+            <input type="text" id="subject" name="subject" placeholder="Enter the subject of your issue" required />
 
             <label for="severity">Severity Level:</label>
             <select id="severity" name="severity" required>
@@ -58,6 +62,10 @@ $name = $_SESSION['name']; // Replace with actual session variable or database f
             <label for="description">Description:</label>
             <textarea id="description" name="description" placeholder="Describe your issue in detail" required></textarea>
 
+            <!-- Hidden inputs to send name and email -->
+            <input type="hidden" name="name" value="<?php echo htmlspecialchars($name); ?>" />
+            <input type="hidden" name="email" value="<?php echo htmlspecialchars($email); ?>" />
+
             <button type="submit">Submit Ticket</button>
         </form>
     </main>
@@ -68,5 +76,6 @@ $name = $_SESSION['name']; // Replace with actual session variable or database f
             sidebar.classList.toggle('active');
         }
     </script>
+
 </body>
 </html>
